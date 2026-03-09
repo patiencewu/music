@@ -1,0 +1,22 @@
+{
+  "repository": {
+    "owner": "patiencewu",
+    "repo": "music",
+    "branch": "main",
+    "path": "music"
+  },
+  "supportedFormats": [
+    "mp3",
+    "flac",
+    "wav",
+    "ogg",
+    "m4a",
+    "aac"
+  ],
+  "defaultSettings": {
+    "volume": 80,
+    "playMode": "sequential",
+    "shuffleEnabled": false,
+    "repeatMode": "none"
+  }
+}

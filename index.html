@@ -4,65 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>音乐播放器</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="player-container">
-        <div class="player-header">
-            <h1>🎵 音乐播放器</h1>
-        </div>
-
-        <div class="player-info">
-            <div class="current-song">
-                <h2 id="song-title">未播放</h2>
-                <p id="song-artist">请选择音乐</p>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-music"></i> 音乐播放器</h1>
+            <div class="header-controls">
+                <button id="refreshButton" class="btn-icon" title="刷新播放列表">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
             </div>
-            <div class="album-cover">
-                <div class="cover-placeholder">🎶</div>
-            </div>
-        </div>
+        </header>
 
-        <div class="progress-container">
-            <div class="time-display">
-                <span id="current-time">0:00</span>
-                <span id="duration">0:00</span>
-            </div>
-            <div class="progress-bar">
-                <div id="progress-fill" class="progress-fill"></div>
-                <input type="range" id="progress-slider" class="progress-slider" min="0" max="100" value="0">
-            </div>
-        </div>
+        <main class="main-content">
+            <div class="player-section">
+                <div class="album-art">
+                    <div class="album-placeholder">
+                        <i class="fas fa-compact-disc"></i>
+                    </div>
+                </div>
 
-        <div class="controls">
-            <button id="shuffle-btn" class="control-btn" title="随机播放">🔀</button>
-            <button id="prev-btn" class="control-btn" title="上一首">⏮️</button>
-            <button id="play-btn" class="control-btn play-pause" title="播放/暂停">▶️</button>
-            <button id="next-btn" class="control-btn" title="下一首">⏭️</button>
-            <button id="repeat-btn" class="control-btn" title="循环播放">🔁</button>
-        </div>
+                <div class="song-info">
+                    <h2 id="songTitle">等待播放...</h2>
+                    <p id="songArtist">请选择歌曲</p>
+                </div>
 
-        <div class="volume-control">
-            <span>🔊</span>
-            <input type="range" id="volume-slider" class="volume-slider" min="0" max="100" value="80">
-            <span id="volume-value">80%</span>
-        </div>
+                <div class="progress-container">
+                    <span id="currentTime">0:00</span>
+                    <input type="range" id="progressBar" class="progress-bar" min="0" max="100" value="0">
+                    <span id="duration">0:00</span>
+                </div>
 
-        <div class="playlist-container">
-            <div class="playlist-header">
-                <h3>播放列表</h3>
-                <div class="playlist-controls">
-                    <button id="sort-asc-btn" class="sort-btn" title="升序排列">⬆️</button>
-                    <button id="sort-desc-btn" class="sort-btn" title="降序排列">⬇️</button>
-                    <button id="shuffle-playlist-btn" class="sort-btn" title="随机排序">🔀</button>
+                <div class="controls">
+                    <button id="shuffleButton" class="btn-control" title="随机播放">
+                        <i class="fas fa-random"></i>
+                    </button>
+                    <button id="prevButton" class="btn-control" title="上一首">
+                        <i class="fas fa-step-backward"></i>
+                    </button>
+                    <button id="playButton" class="btn-play" title="播放/暂停">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <button id="nextButton" class="btn-control" title="下一首">
+                        <i class="fas fa-step-forward"></i>
+                    </button>
+                    <button id="repeatButton" class="btn-control" title="循环模式">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                </div>
+
+                <div class="volume-container">
+                    <button id="muteButton" class="btn-icon" title="静音">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="80">
+                    <span id="volumeValue">80%</span>
+                </div>
+
+                <div class="lyrics-container">
+                    <div id="lyricsContent" class="lyrics-content">
+                        <p class="no-lyrics">暂无歌词</p>
+                    </div>
                 </div>
             </div>
-            <div id="playlist" class="playlist">
-                <div class="playlist-empty">正在加载音乐...</div>
-            </div>
-        </div>
+
+            <aside class="playlist-section">
+                <div class="playlist-header">
+                    <h3><i class="fas fa-list"></i> 播放列表</h3>
+                    <span id="songCount">0 首歌曲</span>
+                </div>
+                <div id="playlist" class="playlist">
+                    <div class="empty-playlist">
+                        <i class="fas fa-music"></i>
+                        <p>播放列表为空</p>
+                        <p>点击刷新按钮加载音乐</p>
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+        <footer class="footer">
+            <p><i class="fas fa-keyboard"></i> 快捷键: 空格(播放/暂停) | ← →(切歌) | ↑ ↓(音量) | M(静音) | S(随机) | R(循环)</p>
+        </footer>
     </div>
 
-    <audio id="audio-player"></audio>
-    <script src="script.js"></script>
+    <audio id="audioPlayer"></audio>
+    <script src="player.js"></script>
 </body>
 </html>
