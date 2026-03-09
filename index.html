@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>音乐播放器</title>
+    <title>Music Player</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <header class="header">
-            <h1><i class="fas fa-music"></i> 音乐播放器</h1>
+            <h1><i class="fas fa-music"></i> Music Player</h1>
             <div class="header-controls">
-                <button id="refreshButton" class="btn-icon" title="刷新播放列表">
+                <button id="refreshButton" class="btn-icon" title="Refresh Playlist">
                     <i class="fas fa-sync-alt"></i>
                 </button>
             </div>
@@ -27,8 +27,8 @@
                 </div>
 
                 <div class="song-info">
-                    <h2 id="songTitle">等待播放...</h2>
-                    <p id="songArtist">请选择歌曲</p>
+                    <h2 id="songTitle">Ready to Play...</h2>
+                    <p id="songArtist">Select a Song</p>
                 </div>
 
                 <div class="progress-container">
@@ -38,25 +38,25 @@
                 </div>
 
                 <div class="controls">
-                    <button id="shuffleButton" class="btn-control" title="随机播放">
+                    <button id="shuffleButton" class="btn-control" title="Shuffle">
                         <i class="fas fa-random"></i>
                     </button>
-                    <button id="prevButton" class="btn-control" title="上一首">
+                    <button id="prevButton" class="btn-control" title="Previous">
                         <i class="fas fa-step-backward"></i>
                     </button>
-                    <button id="playButton" class="btn-play" title="播放/暂停">
+                    <button id="playButton" class="btn-play" title="Play/Pause">
                         <i class="fas fa-play"></i>
                     </button>
-                    <button id="nextButton" class="btn-control" title="下一首">
+                    <button id="nextButton" class="btn-control" title="Next">
                         <i class="fas fa-step-forward"></i>
                     </button>
-                    <button id="repeatButton" class="btn-control" title="循环模式">
+                    <button id="repeatButton" class="btn-control" title="Repeat Mode">
                         <i class="fas fa-redo"></i>
                     </button>
                 </div>
 
                 <div class="volume-container">
-                    <button id="muteButton" class="btn-icon" title="静音">
+                    <button id="muteButton" class="btn-icon" title="Mute">
                         <i class="fas fa-volume-up"></i>
                     </button>
                     <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="80">
@@ -65,28 +65,28 @@
 
                 <div class="lyrics-container">
                     <div id="lyricsContent" class="lyrics-content">
-                        <p class="no-lyrics">暂无歌词</p>
+                        <p class="no-lyrics">No Lyrics</p>
                     </div>
                 </div>
             </div>
 
             <aside class="playlist-section">
                 <div class="playlist-header">
-                    <h3><i class="fas fa-list"></i> 播放列表</h3>
-                    <span id="songCount">0 首歌曲</span>
+                    <h3><i class="fas fa-list"></i> Playlist</h3>
+                    <span id="songCount">0 Songs</span>
                 </div>
                 <div id="playlist" class="playlist">
                     <div class="empty-playlist">
                         <i class="fas fa-music"></i>
-                        <p>播放列表为空</p>
-                        <p>点击刷新按钮加载音乐</p>
+                        <p>Playlist is empty</p>
+                        <p>Click refresh to load music</p>
                     </div>
                 </div>
             </aside>
         </main>
 
         <footer class="footer">
-            <p><i class="fas fa-keyboard"></i> 快捷键: 空格(播放/暂停) | ← →(切歌) | ↑ ↓(音量) | M(静音) | S(随机) | R(循环)</p>
+            <p><i class="fas fa-keyboard"></i> Shortcuts: Space(Play/Pause) | ← →(Skip) | ↑ ↓(Volume) | M(Mute) | S(Shuffle) | R(Repeat)</p>
         </footer>
     </div>
 
