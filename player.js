@@ -173,7 +173,7 @@ class MusicPlayer {
         playlistEl.innerHTML = `
             <div class="empty-playlist">
                 <i class="fas fa-spinner fa-spin"></i>
-                <p>加载中...</p>
+                <p>Loading...</p>
             </div>
         `;
     }
@@ -183,11 +183,11 @@ class MusicPlayer {
         playlistEl.innerHTML = `
             <div class="empty-playlist">
                 <i class="fas fa-music"></i>
-                <p>播放列表为空</p>
-                <p>点击刷新按钮加载音乐</p>
+                <p>Playlist is empty</p>
+                <p>Click refresh to load music</p>
             </div>
         `;
-        document.getElementById('songCount').textContent = '0 首歌曲';
+        document.getElementById('songCount').textContent = '0 Songs';
     }
 
     renderPlaylist() {
@@ -211,7 +211,7 @@ class MusicPlayer {
     }
 
     updateSongCount() {
-        document.getElementById('songCount').textContent = `${this.playlist.length} 首歌曲`;
+        document.getElementById('songCount').textContent = `${this.playlist.length} Songs`;
     }
 
     playSong(index) {
@@ -386,7 +386,7 @@ class MusicPlayer {
     }
 
     showNoLyrics() {
-        document.getElementById('lyricsContent').innerHTML = '<p class="no-lyrics">暂无歌词</p>';
+        document.getElementById('lyricsContent').innerHTML = '<p class="no-lyrics">No Lyrics</p>';
     }
 
     updateLyrics() {
