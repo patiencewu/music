@@ -1,10 +1,13 @@
 {
-  "repository": {
-    "owner": "patiencewu",
-    "repo": "music",
-    "branch": "main",
-    "path": "music"
-  },
+  "repositories": [
+    {
+      "owner": "patiencewu",
+      "repo": "music2",
+      "branch": "main",
+      "path": "music",
+      "name": "Main Music"
+    }
+  ],
   "supportedFormats": [
     "mp3",
     "flac",

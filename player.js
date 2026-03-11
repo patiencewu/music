@@ -13,7 +13,7 @@ class MusicPlayer {
         this.currentLyricIndex = -1;
         
         this.config = null;
-        this.repository = null;
+        this.repositories = [];
         
         this.init();
     }
@@ -29,7 +29,7 @@ class MusicPlayer {
         try {
             const response = await fetch('config.json');
             this.config = await response.json();
-            this.repository = this.config.repository;
+            this.repositories = this.config.repositories || [];
         } catch (error) {
             console.error('加载配置文件失败:', error);
             this.detectRepository();
@@ -41,12 +41,13 @@ class MusicPlayer {
         const match = url.match(/github\.io\/([^\/]+)/);
         if (match) {
             const repoName = match[1];
-            this.repository = {
+            this.repositories = [{
                 owner: repoName,
                 repo: repoName,
                 branch: 'main',
-                path: 'music'
-            };
+                path: 'music',
+                name: 'Auto-detected'
+            }];
         }
     }
 
@@ -84,7 +85,7 @@ class MusicPlayer {
         this.showLoading();
         
         try {
-            if (this.repository) {
+            if (this.repositories && this.repositories.length > 0) {
                 await this.loadFromGitHub();
             } else {
                 await this.loadFromLocal();
@@ -96,31 +97,35 @@ class MusicPlayer {
     }
 
     async loadFromGitHub() {
-        const { owner, repo, branch, path } = this.repository;
-        const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
+        this.playlist = [];
         
-        try {
-            const response = await fetch(apiUrl);
-            if (!response.ok) throw new Error('GitHub API请求失败');
+        for (const repository of this.repositories) {
+            const { owner, repo, branch, path } = repository;
+            const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
             
-            const data = await response.json();
-            this.playlist = [];
-            
-            await this.processGitHubFiles(data, path);
-            
-            if (this.playlist.length === 0) {
-                this.showEmptyPlaylist();
-            } else {
-                this.renderPlaylist();
-                this.updateSongCount();
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    console.error(`GitHub API请求失败 for ${repository.name || repo}`);
+                    continue;
+                }
+                
+                const data = await response.json();
+                await this.processGitHubFiles(data, path, repository);
+            } catch (error) {
+                console.error(`从GitHub加载失败 for ${repository.name || repo}:`, error);
             }
-        } catch (error) {
-            console.error('从GitHub加载失败:', error);
-            await this.loadFromLocal();
+        }
+        
+        if (this.playlist.length === 0) {
+            this.showEmptyPlaylist();
+        } else {
+            this.renderPlaylist();
+            this.updateSongCount();
         }
     }
 
-    async processGitHubFiles(files, currentPath) {
+    async processGitHubFiles(files, currentPath, repository) {
         const supportedFormats = this.config?.supportedFormats || ['mp3', 'flac', 'wav', 'ogg', 'm4a', 'aac'];
         
         for (const file of files) {
@@ -131,18 +136,19 @@ class MusicPlayer {
                         name: file.name.replace(`.${extension}`, ''),
                         path: file.path,
                         url: file.download_url,
-                        type: extension
+                        type: extension,
+                        repository: repository.name || repository.repo
                     };
                     this.playlist.push(song);
                 }
             } else if (file.type === 'dir') {
                 try {
-                    const { owner, repo, branch } = this.repository;
+                    const { owner, repo, branch } = repository;
                     const subDirUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${file.path}?ref=${branch}`;
                     const response = await fetch(subDirUrl);
                     if (response.ok) {
                         const subFiles = await response.json();
-                        await this.processGitHubFiles(subFiles, file.path);
+                        await this.processGitHubFiles(subFiles, file.path, repository);
                     }
                 } catch (error) {
                     console.error(`加载目录 ${file.name} 失败:`, error);
@@ -202,7 +208,7 @@ class MusicPlayer {
                 <div class="song-icon"><i class="fas fa-music"></i></div>
                 <div class="song-info">
                     <h4>${song.name}</h4>
-                    <p>${song.type.toUpperCase()}</p>
+                    <p>${song.type.toUpperCase()} ${song.repository ? `<span class="repository-tag">${song.repository}</span>` : ''}</p>
                 </div>
             `;
             item.addEventListener('click', () => this.playSong(index));

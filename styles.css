@@ -384,6 +384,16 @@ body {
     margin: 0;
 }
 
+.playlist-item .song-info .repository-tag {
+    background: rgba(255, 215, 0, 0.3);
+    color: #ffd700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    margin-left: 8px;
+    display: inline-block;
+}
+
 .playlist-item .song-duration {
     font-size: 12px;
     opacity: 0.7;

@@ -1,0 +1,39 @@
+{
+  "repositories": [
+    {
+      "owner": "your-username",
+      "repo": "music-repo-1",
+      "branch": "main",
+      "path": "music",
+      "name": "My Music Collection"
+    },
+    {
+      "owner": "another-user",
+      "repo": "music-repo-2",
+      "branch": "main",
+      "path": "songs",
+      "name": "Favorite Songs"
+    },
+    {
+      "owner": "third-user",
+      "repo": "music-repo-3",
+      "branch": "master",
+      "path": "audio",
+      "name": "Audio Library"
+    }
+  ],
+  "supportedFormats": [
+    "mp3",
+    "flac",
+    "wav",
+    "ogg",
+    "m4a",
+    "aac"
+  ],
+  "defaultSettings": {
+    "volume": 80,
+    "playMode": "sequential",
+    "shuffleEnabled": false,
+    "repeatMode": "none"
+  }
+}
